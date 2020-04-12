@@ -36,6 +36,7 @@ func NewPaymentController(token string) *PaymentController {
 // ######################INTERFACE IMPLEMENTATIONS###################
 // ##################################################################
 
+//DoRequest performs the request call.
 func (pc *PaymentController) DoRequest() iface.BodyRoot {
 	log.Printf("Chamando DoRequest para o request: %+v\n", pc.request.Body)
 	log.Println("#####################################")
