@@ -80,6 +80,7 @@ func (pc *PaymentController) DoRequest() iface.BodyRoot {
 
 	log.Printf("Recebeu: %+v\n", responseBody)
 	log.Println("#####################################")
+
 	return responseBody
 }
 
