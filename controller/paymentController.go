@@ -71,6 +71,7 @@ func (pc *PaymentController) DoRequest() iface.BodyRoot {
 	// }
 
 	responseBody := &model.PaymentResponseRoot{}
+
 	errr := decoder.Decode(responseBody)
 
 	if nil != errr {
