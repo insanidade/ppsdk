@@ -16,6 +16,7 @@ import (
 // const paypalSandboxAPIURL string = "https://api.sandbox.paypal.com"
 const createPaymentURL string = "/v1/payments/payment"
 
+//PaymentController struct (testing access to private repo by go get)
 type PaymentController struct {
 	Body    *model.PaymentRoot
 	Header  *model.HeaderForREST
