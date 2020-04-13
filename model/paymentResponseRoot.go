@@ -22,7 +22,7 @@ type PaymentResponseRoot struct {
 	Message          string             `json:"message,omitempty"`
 	InformationLink  string             `json:"information_link,omitempty"`
 	Details          []DetailsOnFailure `json:"details,omitempty"`
-
+	//Non-json attributes. Not exported.
 	valid bool
 }
 
