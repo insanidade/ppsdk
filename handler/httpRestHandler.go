@@ -40,6 +40,8 @@ func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
 	}
 	defer response.Body.Close()
 
+	pc.statusCode = response.StatusCode
+
 	log.Printf("Recebeu HTTP Status code: %d\n", response.StatusCode)
 	log.Println("#####################################")
 	for headerName, headerValue := range response.Header {

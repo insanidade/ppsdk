@@ -28,6 +28,19 @@ func NewPaymentBuilder(token string) *PaymentBuilder {
 	}
 }
 
+func NewPaymentBuilderWithNegativeTest(token string, negativeTestName string) *PaymentBuilder {
+	header := model.NewHeaderForREST()
+	header.SetBearerToken(token)
+	header.SetNegativeTest(negativeTestName)
+	setUpLoggingFile("payment.log")
+	return &PaymentBuilder{
+		body:   model.NewPaymentRoot(),
+		header: header,
+	}
+}
+
+// SetNegativeTest
+
 // ##################################################################
 // ######################INTERFACE IMPLEMENTATIONS###################
 // ##################################################################

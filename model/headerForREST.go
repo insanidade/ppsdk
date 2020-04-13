@@ -41,7 +41,7 @@ func (hfr *HeaderForREST) GetHeaders() map[string]string {
 //SetNegativeTest adds values for negative test simulations.
 //Example of valid value: {"mock_application_codes": "INSTRUMENT_DECLINED"}
 func (hfr *HeaderForREST) SetNegativeTest(negativeTestValue string) {
-	hfr.Headers["PayPal-Mock-Response"] = negativeTestValue
+	hfr.Headers["PayPal-Mock-Response"] = "{\"mock_application_codes\":" + "\"" + negativeTestValue + "\"}"
 	hfr.NegativeTestValue = negativeTestValue
 }
 
