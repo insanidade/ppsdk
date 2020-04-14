@@ -29,9 +29,9 @@ func NewShippingAddress(city string,
 		Line1:               line1,
 		Line2:               line2,
 		City:                city,
-		CountryCode:         countryCode,
 		PostalCode:          postalCode,
 		State:               state,
+		CountryCode:         countryCode,
 		NormalizationStatus: normalizationStatus,
 	}
 }
