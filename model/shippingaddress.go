@@ -25,6 +25,7 @@ func NewShippingAddress(city string,
 	recipientName string,
 	state string) *ShippingAddress {
 	return &ShippingAddress{
+		RecipientName:       recipientName,
 		Line1:               line1,
 		Line2:               line2,
 		City:                city,
@@ -32,6 +33,5 @@ func NewShippingAddress(city string,
 		PostalCode:          postalCode,
 		State:               state,
 		NormalizationStatus: normalizationStatus,
-		RecipientName:       recipientName,
 	}
 }
