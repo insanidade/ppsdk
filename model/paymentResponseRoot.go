@@ -7,7 +7,7 @@ type PaymentResponseRoot struct {
 	Payer              *Payer              `json:"payer,omitempty"`
 	ApplicationContext *ApplicationContext `json:"application_context,omitempty"`
 	Transactions       []Transaction       `json:"transactions,omitempty"`
-	State              string              `json:"string,omitempty"`
+	State              string              `json:"state,omitempty"`
 	NoteToPayer        string              `json:"note_to_payer,omitempty"`
 	RedirectURLS       *RedirectURLS       `json:"redirect_urls,omitempty"`
 	FailureReason      string              `json:"failure_reason,omitempty"`
