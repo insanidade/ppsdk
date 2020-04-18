@@ -96,7 +96,7 @@ func (pc *PaymentBuilder) bodyFactory() {
 	transaction := model.NewTransaction("this is a description",
 		"this is a note to the payee",
 		"this is some custom message",
-		"odefranca invoice - SHALL BE RANDOM",
+		"odefranca invoice - &&",
 		"soft desc",
 		"odefranca notify url")
 	transaction.SetAmount(amount)
