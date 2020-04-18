@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 
 	iface "github.com/insanidade/ppsdk/interfaces"
@@ -36,7 +37,8 @@ func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
 	response, er := http.DefaultClient.Do(pc.request)
 
 	if nil != er {
-		log.Fatalf("Erro na requisição: %+v\n", er)
+		trace()
+		log.Fatalf("Erro na requisição HTTP: %+v\n", er)
 	}
 	defer response.Body.Close()
 
@@ -48,14 +50,7 @@ func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
 		log.Printf("Header na resposta[%s : %s]\n", headerName, strings.Join(headerValue, ","))
 		log.Println("#####################################")
 	}
-
-	// bodyBytes, err := ioutil.ReadAll(response.Body)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// bodyString := string(bodyBytes)
-	// log.Printf("Recebeu response.Body: %s\n", bodyString)
-	// log.Println("#####################################")
+	//#############################################
 
 	decoder := json.NewDecoder(response.Body)
 
@@ -63,10 +58,11 @@ func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
 	errr := decoder.Decode(responseBody)
 
 	if nil != errr {
+		trace()
 		log.Fatalf("Erro  de leitura de JSON: %s", errr.Error())
 	}
 
-	log.Printf("Recebeu: %+v\n", responseBody)
+	log.Printf("Recebeu: %+v\n", *responseBody)
 	log.Println("#####################################")
 
 	return responseBody
@@ -106,6 +102,14 @@ func (hrh *hTTPRESTHandler) GetRequestContainer() iface.RequestContainer {
 
 func (hrh *hTTPRESTHandler) GetStatusCode() int {
 	return hrh.statusCode
+}
+
+func trace() {
+	pc := make([]uintptr, 10) // at least 1 entry needed
+	runtime.Callers(2, pc)
+	f := runtime.FuncForPC(pc[0])
+	file, line := f.FileLine(pc[0])
+	log.Printf("%s:%d %s\n", file, line, f.Name())
 }
 
 func setUpLoggingFile(logFileName string) {

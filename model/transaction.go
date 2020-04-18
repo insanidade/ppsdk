@@ -30,6 +30,7 @@ func NewTransaction(desc string,
 		InvoiceNumber:    inv,
 		SoftDescriptor:   soft,
 		NotifyURL:        notifURL,
+		PaymentOptions:   NewPaymentOptions(),
 		RelatedResources: emptyRelatedResource,
 	}
 }

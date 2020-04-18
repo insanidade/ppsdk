@@ -80,8 +80,7 @@ func (pc *PaymentBuilder) bodyFactory() {
 	shippingAddress := model.NewShippingAddress("Campina Grannde",
 		"BR",
 		"Rua X,Bairro Y",
-		"apto 1700",
-		"NORMALIZED",
+		"apto 1700", "",
 		"58108125",
 		"Otávio Augusto",
 		"PB")
@@ -106,7 +105,7 @@ func (pc *PaymentBuilder) bodyFactory() {
 
 	appContext := model.NewApplicationContext("odefranca brand name",
 		"Login",
-		"odefranca locale",
+		"BR",
 		"SET_PROVIDED_ADDRESS",
 		"continue")
 	fmt.Printf("App Context: %+v", appContext)
