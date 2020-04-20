@@ -14,8 +14,9 @@ const createPaymentURL string = "/v1/payments/payment"
 
 //PaymentBuilder struct (testing access to private repo by go get)
 type PaymentBuilder struct {
-	body   *model.PaymentRoot
-	header *model.HeaderForREST
+	body    *model.PaymentRoot
+	header  *model.HeaderForREST
+	invoice iface.Invoice
 }
 
 func NewPaymentBuilder(token string) *PaymentBuilder {
@@ -23,8 +24,20 @@ func NewPaymentBuilder(token string) *PaymentBuilder {
 	header.SetBearerToken(token)
 	setUpLoggingFile("payment.log")
 	return &PaymentBuilder{
-		body:   model.NewPaymentRoot(),
-		header: header,
+		body:    model.NewPaymentRoot(),
+		header:  header,
+		invoice: model.NewInvoiceNumber(),
+	}
+}
+
+func NewPaymentBuilderWithInvoiceNumber(token string, invoiceNumber iface.Invoice) *PaymentBuilder {
+	header := model.NewHeaderForREST()
+	header.SetBearerToken(token)
+	setUpLoggingFile("payment.log")
+	return &PaymentBuilder{
+		body:    model.NewPaymentRoot(),
+		header:  header,
+		invoice: invoiceNumber,
 	}
 }
 
@@ -34,8 +47,9 @@ func NewPaymentBuilderWithNegativeTest(token string, negativeTestName string) *P
 	header.SetNegativeTest(negativeTestName)
 	setUpLoggingFile("payment.log")
 	return &PaymentBuilder{
-		body:   model.NewPaymentRoot(),
-		header: header,
+		body:    model.NewPaymentRoot(),
+		header:  header,
+		invoice: model.NewInvoiceNumber(),
 	}
 }
 
@@ -59,16 +73,9 @@ func (pb *PaymentBuilder) BuildResponseContainer() iface.ResponseContainer {
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
 
-//HeaderFactory is almost useless here (I agree) but maybe
-//we will see other REST specialized headers in the future and
-//that's why I still keep this function in the interface
-// func (pc *PaymentController) HeaderFactory() *model.HeaderForREST {
-// 	for headerName, headerValue := range pc.Header.GetHeaders() {
-// 		log.Printf("Listando headers:%s:%s\n", headerName, headerValue)
-// 		log.Println("#####################################")
-// 	}
-// 	return pc.Header
-// }
+func (pb *PaymentBuilder) SetInvoiceNumber(invoiceNumber iface.Invoice) {
+	pb.invoice = invoiceNumber
+}
 
 //BodyFactory builds a PaymentRoot object and returns it.
 //#################################################################
@@ -80,7 +87,8 @@ func (pc *PaymentBuilder) bodyFactory() {
 	shippingAddress := model.NewShippingAddress("Campina Grannde",
 		"BR",
 		"Rua X,Bairro Y",
-		"apto 1700", "",
+		"apto 1700",
+		"NORMALIZED",
 		"58108125",
 		"Otávio Augusto",
 		"PB")
@@ -96,7 +104,7 @@ func (pc *PaymentBuilder) bodyFactory() {
 	transaction := model.NewTransaction("this is a description",
 		"this is a note to the payee",
 		"this is some custom message",
-		"odefranca invoice - &&",
+		pc.invoice.String(),
 		"soft desc",
 		"odefranca notify url")
 	transaction.SetAmount(amount)
