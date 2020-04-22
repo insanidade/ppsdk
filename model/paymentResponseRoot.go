@@ -26,6 +26,14 @@ type PaymentResponseRoot struct {
 	valid bool
 }
 
+func NewPaymentResponseRoot() *PaymentResponseRoot {
+	return &PaymentResponseRoot{}
+}
+
+func (prr *PaymentResponseRoot) GetLinks() []Link {
+	return prr.Links
+}
+
 // ##################################################################
 // ##########BodyRoot INTERFACE IMPLEMENTATIONS######################
 // ##################################################################

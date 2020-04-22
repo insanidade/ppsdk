@@ -1,6 +1,10 @@
 package builder
 
 import (
+	"log"
+	"os"
+	"runtime"
+
 	iface "github.com/insanidade/ppsdk/interfaces"
 	model "github.com/insanidade/ppsdk/model"
 )
@@ -55,3 +59,21 @@ func (pb *GetPaymentBuilder) BuildResponseContainer() iface.ResponseContainer {
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
+func trace() {
+	pc := make([]uintptr, 10) // at least 1 entry needed
+	runtime.Callers(2, pc)
+	f := runtime.FuncForPC(pc[0])
+	file, line := f.FileLine(pc[0])
+	log.Printf("%s:%d %s\n", file, line, f.Name())
+}
+
+func setUpLoggingFile(logFileName string) {
+	logFile, err := os.OpenFile(logFileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+
+	if nil != err {
+		return
+	}
+
+	log.SetOutput(logFile)
+
+}

@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	iface "github.com/insanidade/ppsdk/interfaces"
-	model "github.com/insanidade/ppsdk/model"
 )
 
 type hTTPRESTHandler struct {
@@ -21,18 +20,18 @@ type hTTPRESTHandler struct {
 }
 
 //NewHTTPRESTHandler returns a new instance of the http REST request handler
-func NewHTTPRESTHandler(requestContainer iface.RequestContainer) *hTTPRESTHandler {
+func NewHTTPRESTHandler(requestContainer iface.RequestContainer, responseContainer iface.ResponseContainer) *hTTPRESTHandler {
 	return &hTTPRESTHandler{
-		requestContainer: requestContainer,
+		requestContainer:  requestContainer,
+		responseContainer: responseContainer,
 	}
 }
 
 //DoRequest performs the request call.
-func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
+//iface.ResponseContainer
+func (pc *hTTPRESTHandler) DoRequest() {
 
 	pc.assemble()
-	// log.Printf("Chamando DoRequest para o request: %+v\n", pc.request.Body)
-	// log.Println("#####################################")
 
 	response, er := http.DefaultClient.Do(pc.request)
 
@@ -43,29 +42,38 @@ func (pc *hTTPRESTHandler) DoRequest() iface.BodyRoot {
 	defer response.Body.Close()
 
 	pc.statusCode = response.StatusCode
+	pc.responseContainer.SetStatus(response.Status)
+	pc.responseContainer.SetCode(response.StatusCode)
 
-	log.Printf("Recebeu HTTP Status code: %d\n", response.StatusCode)
+	log.Printf("Recebeu HTTP Status code: %d\n", pc.responseContainer.GetCode())
 	log.Println("#####################################")
+
+	responseHeader := pc.responseContainer.GetHeader()
 	for headerName, headerValue := range response.Header {
+		responseHeader.AddCustomHeader(headerName, strings.Join(headerValue, ","))
 		log.Printf("Header na resposta[%s : %s]\n", headerName, strings.Join(headerValue, ","))
 		log.Println("#####################################")
 	}
+	pc.responseContainer.SetHeader(responseHeader)
 	//#############################################
 
 	decoder := json.NewDecoder(response.Body)
-
-	responseBody := &model.PaymentResponseRoot{}
+	//
+	responseBody := pc.responseContainer.GetBody()
 	errr := decoder.Decode(responseBody)
-
+	//
 	if nil != errr {
 		trace()
 		log.Fatalf("Erro  de leitura de JSON: %s", errr.Error())
 	}
-
-	log.Printf("Recebeu: %+v\n", *responseBody)
+	//
+	log.Printf("Recebeu: %+v\n", responseBody)
 	log.Println("#####################################")
+	//
+	pc.responseContainer.SetBody(responseBody)
 
-	return responseBody
+	// return pc.responseContainer
+
 }
 
 //assemble assembles the request. Implementation from interface Controller
@@ -98,6 +106,10 @@ func (pc *hTTPRESTHandler) assemble() {
 
 func (hrh *hTTPRESTHandler) GetRequestContainer() iface.RequestContainer {
 	return hrh.requestContainer
+}
+
+func (hrh *hTTPRESTHandler) GetResponseContainer() iface.ResponseContainer {
+	return hrh.responseContainer
 }
 
 func (hrh *hTTPRESTHandler) GetStatusCode() int {

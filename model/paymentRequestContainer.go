@@ -12,8 +12,8 @@ type PaymentRequestContainer struct {
 }
 
 func NewPaymentRequestContainer(
-	header *HeaderForREST,
-	body *PaymentRoot,
+	header iface.Header,
+	body iface.BodyRoot,
 	url string) *PaymentRequestContainer {
 	return &PaymentRequestContainer{
 		Header: header,
@@ -23,6 +23,7 @@ func NewPaymentRequestContainer(
 	}
 }
 
+//GetHeader returns the header that is set for this container.
 func (pc *PaymentRequestContainer) GetHeader() iface.Header {
 	return pc.Header
 }
