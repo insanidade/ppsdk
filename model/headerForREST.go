@@ -21,7 +21,7 @@ func NewHeaderForREST() *HeaderForREST {
 }
 
 // ##################################################################
-// ######################INTERFACE IMPLEMENTATIONS###################
+// ################Header NTERFACE IMPLEMENTATIONS###################
 // ##################################################################
 
 //AddCustomHeader adds custom header to the header

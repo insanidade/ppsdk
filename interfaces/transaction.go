@@ -8,7 +8,7 @@ type Transaction interface {
 	// BuildResponseContainer() ResponseContainer
 
 	GetRequestBody() BodyRoot
-	GetResponseBody() BodyRoot
+	GetResponseBody() ResponseBodyRoot
 	GetRequestHeader() Header
 	GetResponseHeader() Header
 

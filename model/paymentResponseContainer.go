@@ -1,10 +1,12 @@
 package model
 
-// model "github.com/insanidade/ppsdk/model"
+import (
+	iface "github.com/insanidade/ppsdk/interfaces"
+)
 
 type PaymentResponseContainer struct {
-	Header *HeaderForRESTResponse
-	Body   *PaymentResponseRoot //iface.BodyRoot
+	Header iface.Header
+	Body   iface.ResponseBodyRoot
 	Status string
 	Code   int
 }
@@ -20,18 +22,18 @@ func NewPaymentResponseContainer() *PaymentResponseContainer {
 }
 
 //GetHeader returns the header that is set for this container.
-func (pc *PaymentResponseContainer) GetHeader() *HeaderForRESTResponse {
+func (pc *PaymentResponseContainer) GetHeader() iface.Header {
 	return pc.Header
 }
 
-func (pc *PaymentResponseContainer) GetBody() *PaymentResponseRoot {
+func (pc *PaymentResponseContainer) GetBody() iface.ResponseBodyRoot {
 	return pc.Body
 }
 
-func (pc *PaymentResponseContainer) SetHeader(header *HeaderForRESTResponse) {
+func (pc *PaymentResponseContainer) SetHeader(header iface.Header) {
 	pc.Header = header
 }
-func (pc *PaymentResponseContainer) SetBody(body *PaymentResponseRoot) {
+func (pc *PaymentResponseContainer) SetBody(body iface.ResponseBodyRoot) {
 	pc.Body = body
 }
 func (pc *PaymentResponseContainer) GetStatus() string {

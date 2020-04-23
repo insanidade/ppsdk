@@ -2,9 +2,9 @@ package interfaces
 
 type ResponseContainer interface {
 	GetHeader() Header
-	GetBody() BodyRoot
+	GetBody() ResponseBodyRoot
 	SetHeader(header Header)
-	SetBody(body BodyRoot)
+	SetBody(body ResponseBodyRoot)
 	GetStatus() string
 	SetStatus(status string)
 	GetCode() int

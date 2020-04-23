@@ -1,5 +1,9 @@
 package model
 
+import (
+	iface "github.com/insanidade/ppsdk/interfaces"
+)
+
 type PaymentResponseRoot struct {
 	//Successful response parameters
 	ID                 string              `json:"id,omitempty"`
@@ -30,23 +34,34 @@ func NewPaymentResponseRoot() *PaymentResponseRoot {
 	return &PaymentResponseRoot{}
 }
 
-func (prr *PaymentResponseRoot) GetLinks() []Link {
-	return prr.Links
-}
-
 // ##################################################################
-// ##########BodyRoot INTERFACE IMPLEMENTATIONS######################
+// ###ResponseBodyRoot INTERFACE IMPLEMENTATIONS#####################
 // ##################################################################
-
-//SetValid sets validity
-func (prr *PaymentResponseRoot) SetValid(valid bool) {
-	prr.valid = valid
+func (prr *PaymentResponseRoot) GetLinks() map[string]iface.Link {
+	linkMap := make(map[string]iface.Link)
+	for _, link := range prr.Links {
+		newLink := NewLink(link.GetHref(), link.GetRel(), link.GetMethod())
+		linkMap[link.GetRel()] = newLink
+	}
+	return linkMap
+}
+func (prr *PaymentResponseRoot) GetId() string {
+	return prr.ID
 }
 
-//IsValid returns validity
-func (prr *PaymentResponseRoot) IsValid() bool {
-	return prr.valid
+func (prr *PaymentResponseRoot) GetDebugID() string {
+	return prr.DebugID
 }
+
+// //SetValid sets validity
+// func (prr *PaymentResponseRoot) SetValid(valid bool) {
+// 	prr.valid = valid
+// }
+//
+// //IsValid returns validity
+// func (prr *PaymentResponseRoot) IsValid() bool {
+// 	return prr.valid
+// }
 
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############

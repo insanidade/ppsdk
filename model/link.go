@@ -12,6 +12,25 @@ type Link struct {
 	Method string `json:"method,omitempty"`
 }
 
+func NewLink(h string, r string, m string) *Link {
+	return &Link{
+		Href:   h,
+		Rel:    r,
+		Method: m}
+}
+
+func (link *Link) GetHref() string {
+	return link.Href
+}
+
+func (link *Link) GetRel() string {
+	return link.Rel
+}
+
+func (link *Link) GetMethod() string {
+	return link.Method
+}
+
 // func (link *Link) MarshalJSON() ([]byte, error) {
 // 	// localHref, _ := url.Parse(link.Href)
 // 	trace()

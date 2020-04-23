@@ -17,11 +17,11 @@ const createPaymentURL string = "/v1/payments/payment"
 type PaymentTransaction struct {
 	body           iface.BodyRoot
 	header         *model.HeaderForREST
-	bodyResponse   *model.PaymentResponseRoot
-	headerResponse *model.HeaderForRESTResponse
+	bodyResponse   iface.ResponseBodyRoot
+	headerResponse iface.Header
 	invoice        iface.Invoice
 	id             string
-	links          map[string]string
+	links          map[string]iface.Link
 }
 
 //NewPaymentTransaction returns a new instance of a PaymentTransaction.
@@ -37,7 +37,7 @@ func NewPaymentTransaction() *PaymentTransaction {
 		header:         header,
 		headerResponse: model.NewHeaderForRESTResponse(),
 		invoice:        model.NewInvoiceNumber(), //empty invoice
-		links:          make(map[string]string),
+		links:          make(map[string]iface.Link),
 	}
 }
 
@@ -83,7 +83,7 @@ func (pt *PaymentTransaction) GetRequestBody() iface.BodyRoot {
 	return pt.body
 }
 
-func (pt *PaymentTransaction) GetResponseBody() iface.BodyRoot {
+func (pt *PaymentTransaction) GetResponseBody() iface.ResponseBodyRoot {
 	return pt.bodyResponse
 
 }
@@ -111,6 +111,14 @@ func (pt *PaymentTransaction) BuildCreatePaymentContainers() (*model.PaymentRequ
 	return model.NewPaymentRequestContainer(pt.header,
 		pt.body,
 		paypalSandboxAPIURL+createPaymentURL), model.NewPaymentResponseContainer()
+}
+
+func (pt *PaymentTransaction) BuildGetTransactionDetailsContainers() (iface.RequestContainer,
+	iface.ResponseContainer) {
+	trace()
+	log.Printf("URL PARA GET PAYMENT DETAILS: %s\n", pt.links["self"].GetHref())
+	return model.NewGetPaymentRequestContainer(pt.header, pt.links["self"].GetHref()),
+		model.NewPaymentResponseContainer()
 }
 
 func (pt *PaymentTransaction) SetPaymentResponseInfo(responseContainer *model.PaymentResponseContainer) {
@@ -144,15 +152,12 @@ func (pt *PaymentTransaction) SetPaymentResponseInfo(responseContainer *model.Pa
 	pt.bodyResponse = responseContainer.GetBody()
 
 	//Setting up links that support other http requests
-	links := pt.bodyResponse.GetLinks()
-	for _, item := range links {
-		pt.links[item.Rel] = item.Href
-	}
+	pt.links = responseContainer.GetBody().GetLinks() // pt.bodyResponse.GetLinks()
 
 }
 
-func (pt *PaymentTransaction) BuildGetTransactionDetailsContainer() iface.RequestContainer {
-	return model.NewGetPaymentRequestContainer(pt.header, pt.links["self"])
+func (pb *PaymentTransaction) GetLinks() map[string]iface.Link {
+	return pb.links
 }
 
 func (pb *PaymentTransaction) SetInvoiceNumber(invoiceNumber iface.Invoice) {

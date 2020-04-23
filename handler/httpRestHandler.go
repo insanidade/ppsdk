@@ -20,7 +20,8 @@ type hTTPRESTHandler struct {
 }
 
 //NewHTTPRESTHandler returns a new instance of the http REST request handler
-func NewHTTPRESTHandler(requestContainer iface.RequestContainer, responseContainer iface.ResponseContainer) *hTTPRESTHandler {
+func NewHTTPRESTHandler(requestContainer iface.RequestContainer,
+	responseContainer iface.ResponseContainer) *hTTPRESTHandler {
 	return &hTTPRESTHandler{
 		requestContainer:  requestContainer,
 		responseContainer: responseContainer,
@@ -31,7 +32,7 @@ func NewHTTPRESTHandler(requestContainer iface.RequestContainer, responseContain
 //iface.ResponseContainer
 func (pc *hTTPRESTHandler) DoRequest() {
 
-	pc.assemble()
+	pc.configureRequest()
 
 	response, er := http.DefaultClient.Do(pc.request)
 
@@ -76,8 +77,8 @@ func (pc *hTTPRESTHandler) DoRequest() {
 
 }
 
-//assemble assembles the request. Implementation from interface Controller
-func (pc *hTTPRESTHandler) assemble() {
+//configureRequest assembles the request. Implementation from interface Controller
+func (pc *hTTPRESTHandler) configureRequest() {
 
 	log.Printf("##### ASSEMBLE CONTAINER #####:\n")
 
