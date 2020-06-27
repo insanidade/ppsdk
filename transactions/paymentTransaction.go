@@ -106,7 +106,7 @@ func (pt *PaymentTransaction) GetResponseHeader() iface.Header {
 //a response
 func (pt *PaymentTransaction) BuildCreatePaymentContainers() (*model.PaymentRequestContainer, *model.PaymentResponseContainer) {
 	//Build the body.
-	pt.bodyFactory()
+	// pt.bodyFactory()
 
 	return model.NewPaymentRequestContainer(pt.header,
 		pt.body,
