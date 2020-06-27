@@ -109,7 +109,7 @@ func (pt *PaymentTransaction) BuildCreatePaymentContainers() (*model.PaymentRequ
 	// pt.bodyFactory()
 
 	return model.NewPaymentRequestContainer(pt.header,
-		pt.body,
+		model.NewPaymentRoot(),
 		paypalSandboxAPIURL+createPaymentURL), model.NewPaymentResponseContainer()
 }
 
