@@ -24,7 +24,7 @@ type PaymentTransaction struct {
 //NewPaymentTransaction returns a new instance of a PaymentTransaction.
 //The invoice private attribute is set as an empty value. It shall be set by
 //invoking the SetInvoiceNumber() function.
-func NewPaymentTransaction() *PaymentTransaction {
+func NewPaymentTransaction(reqContainer iface.RequestContainer, respContainer iface.ResponseContainer) *PaymentTransaction {
 	// header := model.NewHeaderForREST()
 	// body := model.NewPaymentRoot()
 	setUpLoggingFile("payment.log")
@@ -35,8 +35,8 @@ func NewPaymentTransaction() *PaymentTransaction {
 		// headerResponse:    model.NewHeaderForRESTResponse(),
 		invoice:           model.NewInvoiceNumber(), //empty invoice
 		links:             make(map[string]iface.Link),
-		requestContainer:  model.NewDefaultPaymentRequestContainer(),
-		responseContainer: model.NewPaymentResponseContainer()}
+		requestContainer:  reqContainer,
+		responseContainer: respContainer}
 }
 
 // func NewPaymentTransactionWithToken(token string) *PaymentTransaction {

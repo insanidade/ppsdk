@@ -2,6 +2,7 @@ package resgrp
 
 import (
 	iface "github.com/insanidade/ppsdk/interfaces"
+	model "github.com/insanidade/ppsdk/model"
 	txn "github.com/insanidade/ppsdk/transactions"
 )
 
@@ -13,7 +14,11 @@ func NewPaymentResourceGroup() *PaymentResourceGroup {
 }
 
 func (prg *PaymentResourceGroup) BuildPaymentTransaction() *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction()
+	return txn.NewPaymentTransaction(model.NewDefaultPaymentRequestContainer(), model.NewPaymentResponseContainer())
+}
+
+func (prg *PaymentResourceGroup) BuildGetPaymentDetailsTransaction(payid string) *txn.PaymentTransaction {
+	return txn.NewPaymentTransaction(model.NewGetPaymentRequestContainer(payid), model.NewPaymentResponseContainer())
 }
 
 // TODO: implement order transaction

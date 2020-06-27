@@ -4,6 +4,9 @@ import (
 	iface "github.com/insanidade/ppsdk/interfaces"
 )
 
+// const paypalSandboxAPIURL string = "https://api.sandbox.paypal.com"
+const getPaymentURL string = "/v1/payments/payment"
+
 type GetPaymentRequestContainer struct {
 	Header iface.Header
 	Body   iface.BodyRoot
@@ -11,13 +14,12 @@ type GetPaymentRequestContainer struct {
 	URL    string
 }
 
-func NewGetPaymentRequestContainer(header *HeaderForREST,
-	url string) *GetPaymentRequestContainer {
+func NewGetPaymentRequestContainer(payid string) *GetPaymentRequestContainer {
 	return &GetPaymentRequestContainer{
-		Header: header,
+		Header: NewHeaderForREST(),
 		Body:   NewEmptyBody(),
 		Method: "GET",
-		URL:    url,
+		URL:    paypalSandboxAPIURL + getPaymentURL + "/" + payid,
 	}
 }
 
