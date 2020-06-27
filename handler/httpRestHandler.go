@@ -13,19 +13,15 @@ import (
 )
 
 type hTTPRESTHandler struct {
-	requestContainer  iface.RequestContainer
-	responseContainer iface.ResponseContainer
-	statusCode        int
-	request           *http.Request
+	transaction iface.Transaction
+	statusCode  int
+	request     *http.Request
 }
 
 //NewHTTPRESTHandler returns a new instance of the http REST request handler
-func NewHTTPRESTHandler(requestContainer iface.RequestContainer,
-	responseContainer iface.ResponseContainer) *hTTPRESTHandler {
+func NewHTTPRESTHandler(transaction iface.Transaction) *hTTPRESTHandler {
 	return &hTTPRESTHandler{
-		requestContainer:  requestContainer,
-		responseContainer: responseContainer,
-	}
+		transaction: transaction}
 }
 
 //DoRequest performs the request call.
@@ -43,24 +39,24 @@ func (pc *hTTPRESTHandler) DoRequest() {
 	defer response.Body.Close()
 
 	pc.statusCode = response.StatusCode
-	pc.responseContainer.SetStatus(response.Status)
-	pc.responseContainer.SetCode(response.StatusCode)
+	pc.transaction.SetResponseStatus(response.Status)
+	pc.transaction.SetResponseCode(response.StatusCode)
 
-	log.Printf("Recebeu HTTP Status code: %d\n", pc.responseContainer.GetCode())
+	log.Printf("Recebeu HTTP Status code: %d\n", pc.transaction.GetResponseCode())
 	log.Println("#####################################")
 
-	responseHeader := pc.responseContainer.GetHeader()
+	responseHeader := pc.transaction.GetResponseHeader()
 	for headerName, headerValue := range response.Header {
 		responseHeader.AddCustomHeader(headerName, strings.Join(headerValue, ","))
 		log.Printf("Header na resposta[%s : %s]\n", headerName, strings.Join(headerValue, ","))
 		log.Println("#####################################")
 	}
-	pc.responseContainer.SetHeader(responseHeader)
+	pc.transaction.SetResponseHeader(responseHeader)
 	//#############################################
 
 	decoder := json.NewDecoder(response.Body)
 	//
-	responseBody := pc.responseContainer.GetBody()
+	responseBody := pc.transaction.GetResponseBody()
 	errr := decoder.Decode(responseBody)
 	//
 	if nil != errr {
@@ -71,7 +67,7 @@ func (pc *hTTPRESTHandler) DoRequest() {
 	log.Printf("Recebeu: %+v\n", responseBody)
 	log.Println("#####################################")
 	//
-	pc.responseContainer.SetBody(responseBody)
+	pc.transaction.SetResponseBody(responseBody)
 
 	// return pc.responseContainer
 
@@ -82,10 +78,10 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 	log.Printf("##### ASSEMBLE CONTAINER #####:\n")
 
-	header := pc.requestContainer.GetHeader()
-	body := pc.requestContainer.GetBody()
-	method := pc.requestContainer.GetMethod()
-	url := pc.requestContainer.GetURL()
+	header := pc.transaction.GetRequestHeader()
+	body := pc.transaction.GetRequestBody()
+	method := pc.transaction.GetRequestMethod()
+	url := pc.transaction.GetRequestURL()
 
 	var buf bytes.Buffer
 	encoder := json.NewEncoder(&buf)
@@ -105,13 +101,13 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 }
 
-func (hrh *hTTPRESTHandler) GetRequestContainer() iface.RequestContainer {
-	return hrh.requestContainer
-}
-
-func (hrh *hTTPRESTHandler) GetResponseContainer() iface.ResponseContainer {
-	return hrh.responseContainer
-}
+// func (hrh *hTTPRESTHandler) GetRequestContainer() iface.RequestContainer {
+// 	return hrh.requestContainer
+// }
+//
+// func (hrh *hTTPRESTHandler) GetResponseContainer() iface.ResponseContainer {
+// 	return hrh.responseContainer
+// }
 
 func (hrh *hTTPRESTHandler) GetStatusCode() int {
 	return hrh.statusCode

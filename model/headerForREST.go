@@ -34,10 +34,6 @@ func (hfr *HeaderForREST) GetHeaders() map[string]string {
 	return hfr.Headers
 }
 
-// ##################################################################
-// #####################END OF INTERFACE IMPLEMENTATIONS#############
-// ##################################################################
-
 //SetNegativeTest adds values for negative test simulations.
 //Example of valid value: {"mock_application_codes": "INSTRUMENT_DECLINED"}
 func (hfr *HeaderForREST) SetNegativeTest(negativeTestValue string) {
@@ -53,3 +49,7 @@ func (hfr *HeaderForREST) SetBearerToken(token string) {
 	hfr.Headers["Authorization"] = "Bearer " + token
 	hfr.BearerToken = token
 }
+
+// ##################################################################
+// #####################END OF INTERFACE IMPLEMENTATIONS#############
+// ##################################################################

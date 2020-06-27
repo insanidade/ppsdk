@@ -10,7 +10,20 @@ type Transaction interface {
 	GetRequestBody() BodyRoot
 	GetResponseBody() ResponseBodyRoot
 	GetRequestHeader() Header
-	GetResponseHeader() Header
+	GetResponseHeader() HeaderResponse
+	// GetStatus() string
+	GetRequestMethod() string
+	GetRequestURL() string
+	GetResponseStatus() string
+	GetResponseCode() int
+
+	SetRequestBody(BodyRoot)
+	SetResponseBody(ResponseBodyRoot)
+	SetRequestHeader(Header)
+	SetResponseHeader(HeaderResponse)
+	SetResponseCode(code int)
+	SetResponseStatus(status string)
+	// SetStatus(status string)
 
 	// BodyFactory() BodyRoot
 	// HeaderFactory() Header

@@ -5,7 +5,7 @@ import (
 )
 
 type PaymentResponseContainer struct {
-	Header iface.Header
+	Header iface.HeaderResponse
 	Body   iface.ResponseBodyRoot
 	Status string
 	Code   int
@@ -22,7 +22,7 @@ func NewPaymentResponseContainer() *PaymentResponseContainer {
 }
 
 //GetHeader returns the header that is set for this container.
-func (pc *PaymentResponseContainer) GetHeader() iface.Header {
+func (pc *PaymentResponseContainer) GetHeader() iface.HeaderResponse {
 	return pc.Header
 }
 
@@ -30,7 +30,7 @@ func (pc *PaymentResponseContainer) GetBody() iface.ResponseBodyRoot {
 	return pc.Body
 }
 
-func (pc *PaymentResponseContainer) SetHeader(header iface.Header) {
+func (pc *PaymentResponseContainer) SetHeader(header iface.HeaderResponse) {
 	pc.Header = header
 }
 func (pc *PaymentResponseContainer) SetBody(body iface.ResponseBodyRoot) {
