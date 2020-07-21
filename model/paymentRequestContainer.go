@@ -4,7 +4,7 @@ import (
 	iface "github.com/insanidade/ppsdk/interfaces"
 )
 
-const paypalSandboxAPIURL string = "https://api.sandbox.paypal.com"
+const paypalSandboxAPIURLCP string = "https://api.sandbox.paypal.com"
 const createPaymentURL string = "/v1/payments/payment"
 
 type PaymentRequestContainer struct {
@@ -21,7 +21,7 @@ func NewPaymentRequestContainer(
 		Header: header,
 		Body:   body,
 		Method: "POST",
-		URL:    paypalSandboxAPIURL + createPaymentURL,
+		URL:    paypalSandboxAPIURLCP + createPaymentURL,
 	}
 }
 
@@ -32,7 +32,7 @@ func NewDefaultPaymentRequestContainer() *PaymentRequestContainer {
 		Header: header,
 		Body:   body,
 		Method: "POST",
-		URL:    paypalSandboxAPIURL + createPaymentURL,
+		URL:    paypalSandboxAPIURLCP + createPaymentURL,
 	}
 }
 
