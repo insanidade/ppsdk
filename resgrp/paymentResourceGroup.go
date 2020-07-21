@@ -16,15 +16,23 @@ func NewPaymentResourceGroup() *PaymentResourceGroup {
 func (prg *PaymentResourceGroup) BuildPaymentTransaction() *txn.PaymentTransaction {
 	return txn.NewPaymentTransaction(model.NewDefaultPaymentRequestContainer(), model.NewPaymentResponseContainer())
 }
+func (prg *PaymentResourceGroup) BuildGetPaymentDetailsTransaction(payid string) *txn.PaymentTransaction {
+	return txn.NewPaymentTransaction(model.NewGetPaymentRequestContainer(payid), model.NewPaymentResponseContainer())
+}
 
 func (prg *PaymentResourceGroup) BuildCreateBATokenTransaction() *txn.PaymentTransaction {
 	return txn.NewPaymentTransaction(model.NewDefaultBATokenRequestContainer(), model.NewBATokenResponseContainer())
 }
 
-func (prg *PaymentResourceGroup) BuildGetPaymentDetailsTransaction(payid string) *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction(model.NewGetPaymentRequestContainer(payid), model.NewPaymentResponseContainer())
+func (prg *PaymentResourceGroup) BuildCreateBAgreementTransaction() *txn.PaymentTransaction {
+	return txn.NewPaymentTransaction(model.NewDefaultBAgreementRequestContainer(), model.NewBAgreementResponseContainer())
 }
 
+func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *txn.PaymentTransaction {
+	return txn.NewPaymentTransaction(model.NewDefaultCalculateFinancingOptionsRequestContainer(), model.NewCalculateFinancingOptionsResponseContainer())
+}
+
+//#################################################################
 // TODO: implement order transaction
 func (prg *PaymentResourceGroup) BuildOrderTransaction() iface.Transaction {
 	return nil
