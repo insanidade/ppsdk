@@ -23,7 +23,7 @@ func NewCalculateFinancingOptionsRequestContainer(
 		Header: header,
 		Body:   body,
 		Method: "POST",
-		URL:    paypalSandboxAPIURLBAgreement + baAgreementURL,
+		URL:    paypalSandboxAPIURLCalcFinancingOptions + CalcFinancingOptionsURL,
 	}
 }
 
@@ -34,7 +34,7 @@ func NewDefaultCalculateFinancingOptionsRequestContainer() *CalculateFinancingOp
 		Header: header,
 		Body:   body,
 		Method: "POST",
-		URL:    paypalSandboxAPIURLBAgreement + baAgreementURL,
+		URL:    paypalSandboxAPIURLCalcFinancingOptions + CalcFinancingOptionsURL,
 	}
 }
 

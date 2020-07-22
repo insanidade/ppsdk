@@ -6,8 +6,8 @@ import (
 
 type CalculateFinancingOptionsResponseRoot struct {
 	//Successful response parameters
-	TokenId string `json:"token_id,omitempty"`
-	Links   []Link `json:"links,omitempty"`
+	ConfigurationOwnerAccount string            `json:"configuration_owner_account,omitempty"`
+	FinancingOptions          []FinancingOption `json:"financing_options,omitempty"`
 	//Failure parameters
 	Name             string             `json:"name,omitempty"`
 	DebugID          string             `json:"debug_id,omitempty"`
@@ -16,6 +16,7 @@ type CalculateFinancingOptionsResponseRoot struct {
 	Message          string             `json:"message,omitempty"`
 	InformationLink  string             `json:"information_link,omitempty"`
 	Details          []DetailsOnFailure `json:"details,omitempty"`
+	Links            []Link             `json:"links,omitempty"`
 	//Non-json attributes. Not exported.
 	valid bool
 }
@@ -36,7 +37,7 @@ func (prr *CalculateFinancingOptionsResponseRoot) GetLinks() map[string]iface.Li
 	return linkMap
 }
 func (prr *CalculateFinancingOptionsResponseRoot) GetId() string {
-	return prr.TokenId
+	return ""
 }
 
 func (prr *CalculateFinancingOptionsResponseRoot) GetDebugID() string {
