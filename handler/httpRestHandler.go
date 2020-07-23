@@ -3,8 +3,10 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"os"
 	"runtime"
 	"strings"
@@ -80,7 +82,6 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 	header := pc.transaction.GetRequestHeader()
 	body := pc.transaction.GetRequestBody()
-	log.Printf("############# em Assemble: %+v\n", body)
 	method := pc.transaction.GetRequestMethod()
 	url := pc.transaction.GetRequestURL()
 
@@ -100,15 +101,17 @@ func (pc *hTTPRESTHandler) configureRequest() {
 		pc.request.Header.Add(headerName, headerValue)
 	}
 
-}
+	//#########################################
+	// Save a copy of this request for debugging.
+	requestDump, err := httputil.DumpRequest(pc.request, true)
+	if err != nil {
+		fmt.Println(err)
+	}
+	log.Printf("############### REQUEST QUE FORMOU: %s\n", string(requestDump))
+	fmt.Println(string(requestDump))
+	//#########################################
 
-// func (hrh *hTTPRESTHandler) GetRequestContainer() iface.RequestContainer {
-// 	return hrh.requestContainer
-// }
-//
-// func (hrh *hTTPRESTHandler) GetResponseContainer() iface.ResponseContainer {
-// 	return hrh.responseContainer
-// }
+}
 
 func (hrh *hTTPRESTHandler) GetStatusCode() int {
 	return hrh.statusCode

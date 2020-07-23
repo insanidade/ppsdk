@@ -16,7 +16,7 @@ func NewBATokenRoot() *BATokenRoot {
 }
 
 // ##################################################################
-// ######################INTERFACE IMPLEMENTATIONS###################
+// #############BodyRoot INTERFACE IMPLEMENTATIONS###################
 // ##################################################################
 
 //SetValid implements SetValid from BodyRoot interface
@@ -26,6 +26,7 @@ func (pr *BATokenRoot) SetValid(valid bool) {
 
 //IsValid implements IsValid from BodyRoot interface
 func (pr *BATokenRoot) IsValid() bool {
+
 	return pr.valid
 }
 
