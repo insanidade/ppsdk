@@ -4,6 +4,7 @@ package model
 type FundingInstrument struct {
 	CreditCard      *CreditCard      `json:"credit_card,omitempty"`
 	CreditCardToken *CreditCardToken `json:"credit_card_token,omitempty"`
+	Billing         *Billing         `json:"billing,omitempty"`
 }
 
 //SetCreditCard sets the credit card object

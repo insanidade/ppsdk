@@ -12,11 +12,7 @@ type BATokenRoot struct {
 
 func NewBATokenRoot() *BATokenRoot {
 	// var emptyTransactions []Transaction
-	return &BATokenRoot{
-		Description: "Billing Agreemnt Token",
-		// Intent:       intent,
-		// Transactions: emptyTransactions}
-	}
+	return &BATokenRoot{}
 }
 
 // ##################################################################

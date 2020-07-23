@@ -32,6 +32,10 @@ func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *tx
 	return txn.NewPaymentTransaction(model.NewDefaultCalculateFinancingOptionsRequestContainer(), model.NewCalculateFinancingOptionsResponseContainer())
 }
 
+func (prg *PaymentResourceGroup) BuildCapturePaymentRefWithInstallmentsTransaction() *txn.PaymentTransaction {
+	return txn.NewPaymentTransaction(model.NewDefaultPaymentRequestContainer(), model.NewPaymentResponseContainer())
+}
+
 //#################################################################
 // TODO: implement order transaction
 func (prg *PaymentResourceGroup) BuildOrderTransaction() iface.Transaction {

@@ -80,6 +80,7 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 	header := pc.transaction.GetRequestHeader()
 	body := pc.transaction.GetRequestBody()
+	log.Printf("############# em Assemble: %+v\n", body)
 	method := pc.transaction.GetRequestMethod()
 	url := pc.transaction.GetRequestURL()
 

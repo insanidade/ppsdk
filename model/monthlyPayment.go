@@ -2,6 +2,7 @@ package model
 
 type MonthlyPayment struct {
 	CurreencyCode string `json:"currency_code,omitempty"`
+	Curreency     string `json:"currency,omitempty"`
 	Value         string `json:"value,omitempty"`
 }
 
