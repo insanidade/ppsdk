@@ -20,8 +20,8 @@ func (prg *PaymentResourceGroup) BuildGetPaymentDetailsTransaction(payid string)
 	return txn.NewPaymentTransaction(model.NewGetPaymentRequestContainer(payid), model.NewPaymentResponseContainer())
 }
 
-func (prg *PaymentResourceGroup) BuildCreateBATokenTransaction() *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction(model.NewDefaultBATokenRequestContainer(), model.NewBATokenResponseContainer())
+func (prg *PaymentResourceGroup) BuildCreateBATokenTransaction() *txn.CreateBATokenTransaction {
+	return txn.NewCreateBATokenTransaction()
 }
 
 func (prg *PaymentResourceGroup) BuildCreateBAgreementTransaction() *txn.PaymentTransaction {

@@ -12,7 +12,9 @@ type BATokenRoot struct {
 
 func NewBATokenRoot() *BATokenRoot {
 	// var emptyTransactions []Transaction
-	return &BATokenRoot{}
+	return &BATokenRoot{
+		Plan:               NewPlan(),
+		MerchantCustomData: "custom infor from merchant"}
 }
 
 // ##################################################################
@@ -33,3 +35,37 @@ func (pr *BATokenRoot) IsValid() bool {
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
+func (bat *BATokenRoot) SetDescription(value string) {
+	bat.Description = value
+}
+func (bat *BATokenRoot) GetDescription() string {
+	return bat.Description
+}
+
+func (bat *BATokenRoot) SetPayer(thePayer *Payer) {
+	bat.Payer = thePayer
+}
+func (bat *BATokenRoot) GetPayer() *Payer {
+	return bat.Payer
+}
+
+func (bat *BATokenRoot) SetShippingAddress(value *ShippingAddress) {
+	bat.ShippingAddress = value
+}
+func (bat *BATokenRoot) GetShippingAddress() *ShippingAddress {
+	return bat.ShippingAddress
+}
+
+func (bat *BATokenRoot) GetPlan() *Plan {
+	return bat.Plan
+}
+
+func (bat *BATokenRoot) SetPlan(thePlan *Plan) {
+	bat.Plan = thePlan
+}
+func (bat *BATokenRoot) GetMerchantCustomData() string {
+	return bat.MerchantCustomData
+}
+func (bat *BATokenRoot) SetMerchantCustomData(value string) {
+	bat.MerchantCustomData = value
+}

@@ -3,10 +3,8 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
-	"net/http/httputil"
 	"os"
 	"runtime"
 	"strings"
@@ -103,12 +101,12 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 	//#########################################
 	// Save a copy of this request for debugging.
-	requestDump, err := httputil.DumpRequest(pc.request, true)
-	if err != nil {
-		fmt.Println(err)
-	}
-	log.Printf("############### REQUEST QUE FORMOU: %s\n", string(requestDump))
-	fmt.Println(string(requestDump))
+	// requestDump, err := httputil.DumpRequest(pc.request, true)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// log.Printf("############### REQUEST QUE FORMOU: %s\n", string(requestDump))
+	// fmt.Println(string(requestDump))
 	//#########################################
 
 }

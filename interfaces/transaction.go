@@ -23,6 +23,8 @@ type Transaction interface {
 	SetResponseHeader(HeaderResponse)
 	SetResponseCode(code int)
 	SetResponseStatus(status string)
+	SetBearerToken(token string)
+	AssembleRequestBody()
 	// SetStatus(status string)
 
 	// BodyFactory() BodyRoot

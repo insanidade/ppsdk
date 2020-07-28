@@ -21,14 +21,38 @@ func NewPayer(paymentMethod string) *Payer {
 	}
 }
 
+func NewDefaultPayer() *Payer {
+	return &Payer{
+		PaymentMethod: "PAYPAL",
+	}
+}
+
+func (p *Payer) SetPaymentMethod(value string) {
+	p.PaymentMethod = value
+}
+
+func (p *Payer) GetPaymentMethod() string {
+	return p.PaymentMethod
+}
+
+func (p *Payer) SetPayerInfo(pi *PayerInfo) {
+	p.PayerInfo = pi
+}
+func (p *Payer) GetPayerInfo() *PayerInfo {
+	return p.PayerInfo
+}
+
 func (p *Payer) SetStatus(status string) {
 	p.Status = status
+}
+func (p *Payer) GetStatus() string {
+	return p.Status
 }
 
 func (p *Payer) AddFundingInstrument(fi *FundingInstrument) {
 	p.FundingInstruments = append(p.FundingInstruments, *fi)
 }
 
-func (p *Payer) SetPayerInfo(pi *PayerInfo) {
-	p.PayerInfo = pi
+func (p *Payer) GetFundingInstruments() []FundingInstrument {
+	return p.FundingInstruments
 }

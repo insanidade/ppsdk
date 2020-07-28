@@ -128,6 +128,14 @@ func (pt *PaymentTransaction) GetRequestURL() string {
 	return pt.requestContainer.GetURL()
 }
 
+func (pt *PaymentTransaction) SetBearerToken(token string) {
+	pt.GetRequestHeader().SetBearerToken(token)
+}
+
+func (pt *PaymentTransaction) AssembleRequestBody() {
+	//montar objeto para, depois de pronto, fazer pc.requestcontainer.setbody(obj)
+}
+
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
@@ -167,9 +175,6 @@ func (pb *PaymentTransaction) GetLinks() map[string]iface.Link {
 
 func (pb *PaymentTransaction) SetInvoiceNumber(invoiceNumber iface.Invoice) {
 	pb.invoice = invoiceNumber
-}
-func (pt *PaymentTransaction) SetBearerToken(token string) {
-	pt.GetRequestHeader().SetBearerToken(token)
 }
 
 func (pt *PaymentTransaction) SetNegativeTest(negativeTestValue string) {
