@@ -22,3 +22,7 @@ func (pi *PayerInfo) SetBillingAddress(ba *BillingAddress) {
 func (pi PayerInfo) SetShippingAddress(sa *ShippingAddress) {
 	pi.ShippingAddress = sa
 }
+
+func NewPayerInfo() *PayerInfo {
+	return &PayerInfo{}
+}

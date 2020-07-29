@@ -19,6 +19,18 @@ func NewLink(h string, r string, m string) *Link {
 		Method: m}
 }
 
+func (link *Link) SetHref(value string) {
+	link.Href = value
+}
+
+func (link *Link) SetRel(value string) {
+	link.Rel = value
+}
+
+func (link *Link) SetMethod(value string) {
+	link.Method = value
+}
+
 func (link *Link) GetHref() string {
 	return link.Href
 }
