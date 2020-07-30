@@ -13,6 +13,8 @@ type BATokenRoot struct {
 func NewBATokenRoot() *BATokenRoot {
 	// var emptyTransactions []Transaction
 	return &BATokenRoot{
+		Payer:              NewPayer(),
+		ShippingAddress:    NewShippingAddress(),
 		Plan:               NewPlan(),
 		MerchantCustomData: "custom infor from merchant"}
 }

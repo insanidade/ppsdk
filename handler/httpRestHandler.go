@@ -3,8 +3,10 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"net/http/httputil"
 	"os"
 	"runtime"
 	"strings"
@@ -28,7 +30,9 @@ func NewHTTPRESTHandler(transaction iface.Transaction) *hTTPRESTHandler {
 //iface.ResponseContainer
 func (pc *hTTPRESTHandler) DoRequest() {
 
-	pc.configureRequest()
+	pc.transaction.AssembleRequestBody()
+
+	pc.configureHTTPRequest()
 
 	response, er := http.DefaultClient.Do(pc.request)
 
@@ -74,7 +78,7 @@ func (pc *hTTPRESTHandler) DoRequest() {
 }
 
 //configureRequest assembles the request. Implementation from interface Controller
-func (pc *hTTPRESTHandler) configureRequest() {
+func (pc *hTTPRESTHandler) configureHTTPRequest() {
 
 	log.Printf("##### ASSEMBLE CONTAINER #####:\n")
 
@@ -101,11 +105,11 @@ func (pc *hTTPRESTHandler) configureRequest() {
 
 	//#########################################
 	// Save a copy of this request for debugging.
-	// requestDump, err := httputil.DumpRequest(pc.request, true)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// log.Printf("############### REQUEST QUE FORMOU: %s\n", string(requestDump))
+	requestDump, err := httputil.DumpRequest(pc.request, true)
+	if err != nil {
+		fmt.Println(err)
+	}
+	log.Printf("############### REQUEST QUE FORMOU: \n%s", string(requestDump))
 	// fmt.Println(string(requestDump))
 	//#########################################
 

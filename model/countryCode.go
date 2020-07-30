@@ -9,6 +9,10 @@ func NewCountryCode(cc string) *CountryCode {
 		Code: cc}
 }
 
+func (cc *CountryCode) SetCode(value string) {
+	cc.Code = value
+}
+
 func (cc *CountryCode) GetCode() string {
 	return cc.Code
 }

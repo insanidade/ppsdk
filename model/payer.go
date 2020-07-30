@@ -15,9 +15,9 @@ type Payer struct {
 	PayerInfo          *PayerInfo          `json:"payer_info,omitempty"`
 }
 
-func NewPayer(paymentMethod string) *Payer {
+func NewPayer() *Payer {
 	return &Payer{
-		PaymentMethod: paymentMethod,
+		PaymentMethod: "PAYPAL",
 	}
 }
 

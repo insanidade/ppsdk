@@ -15,8 +15,82 @@ type PayerInfo struct {
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 }
 
+func (pi PayerInfo) SetTaxIDType(value string) {
+	pi.TaxIDType = value
+}
+func (pi PayerInfo) GetTaxIDType() string {
+	return pi.TaxIDType
+}
+func (pi PayerInfo) SetTaxID(value string) {
+	pi.TaxID = value
+}
+func (pi PayerInfo) GetTaxID() string {
+	return pi.TaxID
+}
+
+func (pi PayerInfo) SetBirthDate(value string) {
+	pi.BirthDate = value
+}
+func (pi PayerInfo) GetBirthDate() string {
+	return pi.BirthDate
+}
+
+func (pi PayerInfo) SetPayerID(value string) {
+	pi.PayerID = value
+}
+func (pi PayerInfo) GetPayerID() string {
+	return pi.PayerID
+}
+
+func (pi PayerInfo) SetSuffix(value string) {
+	pi.Suffix = value
+}
+func (pi PayerInfo) GetSuffix() string {
+	return pi.Suffix
+}
+func (pi PayerInfo) SetLastName(value string) {
+	pi.LastName = value
+}
+func (pi PayerInfo) GetLastName() string {
+	return pi.LastName
+}
+
+func (pi PayerInfo) SetMiddleName(value string) {
+	pi.MiddleName = value
+}
+func (pi PayerInfo) GetMiddleName() string {
+	return pi.MiddleName
+}
+func (pi PayerInfo) SetFirstName(value string) {
+	pi.FirstName = value
+}
+func (pi PayerInfo) GetFirstName() string {
+	return pi.FirstName
+}
+func (pi PayerInfo) SetSalutation(value string) {
+	pi.Salutation = value
+}
+func (pi PayerInfo) GetSalutation() string {
+	return pi.Salutation
+}
+func (pi PayerInfo) SetEmail(value string) {
+	pi.Email = value
+}
+
+func (pi PayerInfo) GetEmail() string {
+	return pi.Email
+}
+
+func (pi PayerInfo) GetBillingAddress() *BillingAddress {
+	return pi.BillingAddress
+}
+
 func (pi *PayerInfo) SetBillingAddress(ba *BillingAddress) {
 	pi.BillingAddress = ba
+}
+
+func (pi PayerInfo) GetShippingAddress() *ShippingAddress {
+	return pi.ShippingAddress
 }
 
 func (pi PayerInfo) SetShippingAddress(sa *ShippingAddress) {

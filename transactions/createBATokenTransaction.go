@@ -82,6 +82,39 @@ func (pt *CreateBATokenTransaction) SetBearerToken(token string) {
 func (pt *CreateBATokenTransaction) AssembleRequestBody() {
 	//montar objeto para, depois de pronto, fazer pc.requestcontainer.setbody(obj)
 	fmt.Println("CHAMANDO TRANSACTION ASSEMBLE")
+
+	root := model.NewBATokenRoot()
+	root.SetDescription("BA token request description")
+
+	shippingAddress := root.GetShippingAddress()
+	shippingAddress.SetLine1("My first line address")
+	shippingAddress.SetCity("Campina Grande")
+	shippingAddress.SetState("PB")
+	shippingAddress.SetPostalCode("58108125")
+	shippingAddress.SetCountryCode("BR")
+	shippingAddress.SetRecipientName("Otavio Augusto Test")
+
+	payer := root.GetPayer()
+
+	plan := root.GetPlan()
+
+	merchantPreferences := plan.GetMerchantPreferences()
+	merchantPreferences.SetReturnURL("https://example.com/return")
+	merchantPreferences.SetCancelURL("https://example.com/cancel")
+	merchantPreferences.SetNotifyURL("https://example.com/notify")
+	merchantPreferences.SetAcceptedPaymentType("INSTANT")
+	merchantPreferences.SetImmutableShippingAddress(false)
+	merchantPreferences.SetSkipShippingAddress(false)
+
+	plan.SetType(pt.baType)
+	plan.SetMerchantPreferences(merchantPreferences)
+
+	root.SetShippingAddress(shippingAddress)
+	root.SetPayer(payer)
+	root.SetPlan(plan)
+
+	pt.SetRequestBody(root)
+
 }
 
 // ##################################################################
