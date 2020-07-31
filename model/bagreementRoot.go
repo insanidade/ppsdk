@@ -15,6 +15,13 @@ func NewBAgreementRoot() *BAgreementRoot {
 		// Transactions: emptyTransactions}
 	}
 }
+func (bagreement *BAgreementRoot) SetTokenID(value string) {
+	bagreement.TokenID = value
+}
+
+func (bagreement *BAgreementRoot) GetTokenID() string {
+	return bagreement.TokenID
+}
 
 // ##################################################################
 // ######################INTERFACE IMPLEMENTATIONS###################

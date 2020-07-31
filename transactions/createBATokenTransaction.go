@@ -103,7 +103,7 @@ func (pt *CreateBATokenTransaction) AssembleRequestBody() {
 	merchantPreferences.SetCancelURL("https://example.com/cancel")
 	merchantPreferences.SetNotifyURL("https://example.com/notify")
 	merchantPreferences.SetAcceptedPaymentType("INSTANT")
-	merchantPreferences.SetImmutableShippingAddress(false)
+	merchantPreferences.SetImmutableShippingAddress(true)
 	merchantPreferences.SetSkipShippingAddress(false)
 
 	plan.SetType(pt.baType)

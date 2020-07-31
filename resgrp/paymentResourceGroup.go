@@ -24,8 +24,8 @@ func (prg *PaymentResourceGroup) BuildCreateBATokenTransaction() *txn.CreateBATo
 	return txn.NewCreateBATokenTransaction()
 }
 
-func (prg *PaymentResourceGroup) BuildCreateBAgreementTransaction() *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction(model.NewDefaultBAgreementRequestContainer(), model.NewBAgreementResponseContainer())
+func (prg *PaymentResourceGroup) BuildCreateBAgreementTransaction() *txn.CreateBAgreementTransaction {
+	return txn.NewCreateBAgreementTransaction()
 }
 
 func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *txn.PaymentTransaction {
