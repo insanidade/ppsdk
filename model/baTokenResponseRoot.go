@@ -56,3 +56,6 @@ func (prr *BATokenResponseRoot) GetDebugID() string {
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
+func (prr *BATokenResponseRoot) GetTokenID() string {
+	return prr.TokenId
+}

@@ -127,13 +127,11 @@ func (pt *CreateBATokenTransaction) SetBAType(baType string) {
 	fmt.Printf("VALOR DE BA TYPE ESTA DEFINIDO: %s\n", pt.baType)
 }
 
-// func setUpLoggingFile(logFileName string) {
-// 	logFile, err := os.OpenFile(logFileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+func (pt *CreateBATokenTransaction) GetBAToken() string {
 
-// 	if nil != err {
-// 		return
-// 	}
+	obj := pt.GetResponseBody().(*model.BATokenResponseRoot)
 
-// 	log.SetOutput(logFile)
+	fmt.Printf("VALOR DE BA TOKEN VINDO DA RESPOSTA NA TRANSACAO: %s\n", obj.GetTokenID())
 
-// }
+	return obj.GetTokenID()
+}
