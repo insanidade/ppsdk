@@ -28,8 +28,8 @@ func (prg *PaymentResourceGroup) BuildCreateBAgreementTransaction() *txn.CreateB
 	return txn.NewCreateBAgreementTransaction()
 }
 
-func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction(model.NewDefaultCalculateFinancingOptionsRequestContainer(), model.NewCalculateFinancingOptionsResponseContainer())
+func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *txn.CalculateFinancingOptionsTransaction {
+	return txn.NewCalculateFinancingOptionsTransaction()
 }
 
 func (prg *PaymentResourceGroup) BuildCapturePaymentRefWithInstallmentsTransaction() *txn.PaymentTransaction {

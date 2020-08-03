@@ -25,10 +25,29 @@ type CalculateFinancingOptionsRoot struct {
 func NewCalculateFinancingOptionsRoot() *CalculateFinancingOptionsRoot {
 	// var emptyTransactions []Transaction
 	return &CalculateFinancingOptionsRoot{
-		FinancingContryCode: "",
-		// Intent:       intent,
-		// Transactions: emptyTransactions}
+		FinancingContryCode: "BR",
+		TransactionAmount:   NewDefaultTransactionAmount(),
+		FundingInstrument:   NewDefaultBAFundingInstrument(),
 	}
+}
+
+func (pr *CalculateFinancingOptionsRoot) GetFundingInstrument() *BAFundingInstrument {
+	return pr.FundingInstrument
+}
+func (pr *CalculateFinancingOptionsRoot) SetFundingInstrument(value *BAFundingInstrument) {
+	pr.FundingInstrument = value
+}
+func (pr *CalculateFinancingOptionsRoot) GetTransactionAmount() *TransactionAmount {
+	return pr.TransactionAmount
+}
+func (pr *CalculateFinancingOptionsRoot) SetTransactionAmount(value *TransactionAmount) {
+	pr.TransactionAmount = value
+}
+func (pr *CalculateFinancingOptionsRoot) GetFinancingCountryCode() string {
+	return pr.FinancingContryCode
+}
+func (pr *CalculateFinancingOptionsRoot) SetFinancingCountryCode(value string) {
+	pr.FinancingContryCode = value
 }
 
 // ##################################################################

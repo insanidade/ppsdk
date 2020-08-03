@@ -101,13 +101,11 @@ func (pt *CreateBAgreementTransaction) SetBAToken(baToken string) {
 	// fmt.Printf("VALOR DE BA TYPE ESTA DEFINIDO: %s\n", pt.baType)
 }
 
-// func setUpLoggingFile(logFileName string) {
-// 	logFile, err := os.OpenFile(logFileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+func (pt *CreateBAgreementTransaction) GetBAID() string {
 
-// 	if nil != err {
-// 		return
-// 	}
+	obj := pt.GetResponseBody().(*model.BAgreementResponseRoot)
 
-// 	log.SetOutput(logFile)
+	fmt.Printf("VALOR DE BA ID VINDO DA RESPOSTA NA TRANSACAO: %s\n", obj.GetId())
 
-// }
+	return obj.GetId()
+}
