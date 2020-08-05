@@ -15,7 +15,7 @@ func NewPaymentResponseContainer() *PaymentResponseContainer {
 	var code int
 	return &PaymentResponseContainer{
 		Header: NewHeaderForRESTResponse(),
-		Body:   NewPaymentResponseRoot(),
+		Body:   NewDefaultPaymentResponseRoot(),
 		Status: "NO_STATUS",
 		Code:   code,
 	}

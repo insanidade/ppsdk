@@ -12,7 +12,7 @@ type CreditCard struct {
 	Links          []Link          `json:"links,omitempty"`
 }
 
-func NewCreditCard() *CreditCard {
+func NewDefaultCreditCard() *CreditCard {
 	return &CreditCard{}
 }
 

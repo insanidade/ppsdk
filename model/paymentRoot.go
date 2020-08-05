@@ -31,11 +31,13 @@ func (pr *PaymentRoot) IsValid() bool {
 // ##################################################################
 
 //NewPaymentRoot constructor
-func NewPaymentRoot() *PaymentRoot {
-	// var emptyTransactions []Transaction
+func NewDefaultPaymentRoot() *PaymentRoot {
+	var emptyTransactions []Transaction
 	return &PaymentRoot{
-		// Intent:       intent,
-		// Transactions: emptyTransactions}
+		Payer:              NewDefaultPayer(),
+		ApplicationContext: NewDefaultApplicationContext(),
+		RedirectURLS:       NewDefaultRedirectURLS(),
+		Transactions:       emptyTransactions,
 	}
 }
 

@@ -20,6 +20,6 @@ func (b *Billing) GetBillingAdreementID() string {
 	return b.BillingAgreementID
 }
 
-func NewBilling() *Billing {
+func NewDefaultBilling() *Billing {
 	return &Billing{}
 }

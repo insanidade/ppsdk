@@ -16,8 +16,11 @@ type Payer struct {
 }
 
 func NewPayer() *Payer {
+	var emptyFundingInstruments []FundingInstrument
 	return &Payer{
-		PaymentMethod: "PAYPAL",
+		PaymentMethod:      "PAYPAL",
+		FundingInstruments: emptyFundingInstruments,
+		PayerInfo:          NewDefaultPayerInfo(),
 	}
 }
 

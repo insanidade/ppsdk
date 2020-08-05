@@ -38,6 +38,6 @@ func (sio *SelectedInstallmentOption) GetTerm() int {
 	return sio.Term
 }
 
-func NewSelectedInstallmentOption() *SelectedInstallmentOption {
+func NewDefaultSelectedInstallmentOption() *SelectedInstallmentOption {
 	return &SelectedInstallmentOption{}
 }

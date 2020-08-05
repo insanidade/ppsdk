@@ -27,7 +27,7 @@ func NewPaymentRequestContainer(
 
 func NewDefaultPaymentRequestContainer() *PaymentRequestContainer {
 	header := NewHeaderForREST()
-	body := NewPaymentRoot()
+	body := NewDefaultPaymentRoot()
 	return &PaymentRequestContainer{
 		Header: header,
 		Body:   body,

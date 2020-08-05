@@ -15,6 +15,15 @@ type Transaction struct {
 	RelatedResources []RelatedResource `json:"related_resources,omitempty"`
 }
 
+func NewDefaultTransaction() *Transaction {
+	var emptyRelatedResource []RelatedResource
+	return &Transaction{
+		PaymentOptions:   NewPaymentOptions(),
+		Amount:           NewDefaultAmount(),
+		RelatedResources: emptyRelatedResource,
+	}
+}
+
 //NewTransaction constructor
 func NewTransaction(desc string,
 	note string,

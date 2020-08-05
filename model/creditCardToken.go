@@ -9,6 +9,10 @@ type CreditCardToken struct {
 	ExpireYear   int    `json:"expire_year,omitempty"`
 }
 
+func NewDefaultCreditCardToken() *CreditCardToken {
+	return &CreditCardToken{}
+}
+
 func (cc *CreditCardToken) GetExpireMonth() int {
 	return cc.ExpireMonth
 }

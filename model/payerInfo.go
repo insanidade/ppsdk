@@ -97,6 +97,6 @@ func (pi PayerInfo) SetShippingAddress(sa *ShippingAddress) {
 	pi.ShippingAddress = sa
 }
 
-func NewPayerInfo() *PayerInfo {
+func NewDefaultPayerInfo() *PayerInfo {
 	return &PayerInfo{}
 }

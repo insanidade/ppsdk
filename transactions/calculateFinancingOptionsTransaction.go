@@ -8,9 +8,10 @@ import (
 )
 
 type CalculateFinancingOptionsTransaction struct {
-	requestContainer  *model.CalculateFinancingOptionsRequestContainer
-	responseContainer *model.CalculateFinancingOptionsResponseContainer
-	baID              string
+	requestContainer           *model.CalculateFinancingOptionsRequestContainer
+	responseContainer          *model.CalculateFinancingOptionsResponseContainer
+	baID                       string
+	qualifyingfinancingOptions []model.QualifyingFinancingOption
 }
 
 func NewCalculateFinancingOptionsTransaction() *CalculateFinancingOptionsTransaction {
@@ -114,13 +115,20 @@ func (pt *CalculateFinancingOptionsTransaction) SetBAID(id string) {
 	// fmt.Printf("VALOR DE BA TYPE ESTA DEFINIDO: %s\n", pt.baType)
 }
 
-// func setUpLoggingFile(logFileName string) {
-// 	logFile, err := os.OpenFile(logFileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+func (pt *CalculateFinancingOptionsTransaction) GetFinancingOptions() []model.QualifyingFinancingOption {
 
-// 	if nil != err {
-// 		return
-// 	}
+	obj := pt.GetResponseBody().(*model.CalculateFinancingOptionsResponseRoot)
 
-// 	log.SetOutput(logFile)
+	fmt.Println("VALOR DE FINANCING VINDO DA RESPOSTA NA TRANSACAO:")
+	for financingOptionIndex := range obj.GetFinancingOptions() {
 
-// }
+		fmt.Printf("VALOR DO INDICE PARA OS FINANCING OPTIONS: %d\n", financingOptionIndex)
+		pt.qualifyingfinancingOptions = obj.GetFinancingOptions()[financingOptionIndex].QualifyingFinancingOptions
+		for qualifyingIndex := range pt.qualifyingfinancingOptions {
+			fmt.Printf("VALOR DO TERM PARA ESTE QUALIFYING: %d\n", pt.qualifyingfinancingOptions[qualifyingIndex].CreditFinancing.Term)
+		}
+
+	}
+
+	return pt.qualifyingfinancingOptions
+}

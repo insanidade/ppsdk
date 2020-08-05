@@ -30,7 +30,7 @@ type PaymentResponseRoot struct {
 	valid bool
 }
 
-func NewPaymentResponseRoot() *PaymentResponseRoot {
+func NewDefaultPaymentResponseRoot() *PaymentResponseRoot {
 	return &PaymentResponseRoot{}
 }
 

@@ -7,6 +7,10 @@ type FundingInstrument struct {
 	Billing         *Billing         `json:"billing,omitempty"`
 }
 
+func NewDefaultFundingInstrument() *FundingInstrument {
+	return &FundingInstrument{}
+}
+
 //SetCreditCard sets the credit card object
 func (fi *FundingInstrument) SetCreditCard(cc *CreditCard) {
 	fi.CreditCard = cc

@@ -14,3 +14,7 @@ func NewRedirectURLS(r string, c string) *RedirectURLS {
 		CancelURL: c,
 	}
 }
+
+func NewDefaultRedirectURLS() *RedirectURLS {
+	return &RedirectURLS{}
+}

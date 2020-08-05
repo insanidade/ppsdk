@@ -32,8 +32,8 @@ func (prg *PaymentResourceGroup) BuildCalculateFinancingOptionsTransaction() *tx
 	return txn.NewCalculateFinancingOptionsTransaction()
 }
 
-func (prg *PaymentResourceGroup) BuildCapturePaymentRefWithInstallmentsTransaction() *txn.PaymentTransaction {
-	return txn.NewPaymentTransaction(model.NewDefaultPaymentRequestContainer(), model.NewPaymentResponseContainer())
+func (prg *PaymentResourceGroup) BuildCapturePaymentRefWithInstallmentsTransaction() *txn.CapturePaymentRefWithInstallmentsTransaction {
+	return txn.NewCapturePaymentRefWithInstallmentsTransaction()
 }
 
 //#################################################################

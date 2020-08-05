@@ -34,6 +34,14 @@ func NewApplicationContext(brandName string,
 
 }
 
+func NewDefaultApplicationContext() *ApplicationContext {
+
+	return &ApplicationContext{
+		PreferredPaymentSource: NewDefaultPaymentSource(),
+	}
+
+}
+
 func (ac *ApplicationContext) SetPreferredPaymentSource(pps *PaymentSource) {
 	ac.PreferredPaymentSource = pps
 }

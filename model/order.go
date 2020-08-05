@@ -15,3 +15,12 @@ type Order struct {
 	UpdateTime                string      `json:"update_time,omitempty"`
 	Links                     []Link      `json:"links,omitempty"`
 }
+
+func NewDefaultOrder() *Order {
+	var emptyLinks []Link
+	return &Order{
+		Amount:     NewDefaultAmount(),
+		FMFDetails: NewDefaultFMFDetails(),
+		Links:      emptyLinks,
+	}
+}

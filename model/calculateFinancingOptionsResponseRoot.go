@@ -25,6 +25,10 @@ func NewCalculateFinancingOptionsResponseRoot() *CalculateFinancingOptionsRespon
 	return &CalculateFinancingOptionsResponseRoot{}
 }
 
+func (prr *CalculateFinancingOptionsResponseRoot) GetFinancingOptions() []FinancingOption {
+	return prr.FinancingOptions
+}
+
 // ##################################################################
 // ###ResponseBodyRoot INTERFACE IMPLEMENTATIONS#####################
 // ##################################################################
