@@ -8,9 +8,10 @@ import (
 )
 
 type CapturePaymentRefWithInstallmentsTransaction struct {
-	requestContainer  *model.CapturePaymentRefWithInstallmentsRequestContainer
-	responseContainer *model.CapturePaymentRefWithInstallmentsResponseContainer
-	baID              string
+	requestContainer    *model.CapturePaymentRefWithInstallmentsRequestContainer
+	responseContainer   *model.CapturePaymentRefWithInstallmentsResponseContainer
+	BAID                string
+	QualifyingFinancing *model.QualifyingFinancingOption
 }
 
 func NewCapturePaymentRefWithInstallmentsTransaction() *CapturePaymentRefWithInstallmentsTransaction {
@@ -92,14 +93,29 @@ func (pt *CapturePaymentRefWithInstallmentsTransaction) AssembleRequestBody() {
 	fi := model.NewDefaultFundingInstrument()
 
 	billing := fi.Billing
-	billing.SetBillingAgreementID(pt.baID)
+	billing.SetBillingAgreementID(pt.BAID)
 	installmentOption := billing.GetSelectedInstallmentOption()
-	installmentOption.SetTerm(1)
+	installmentOption.SetTerm(pt.QualifyingFinancing.CreditFinancing.Term)
 	monthlyPayment := installmentOption.GetMonthlyPaymente()
-	monthlyPayment.SetCurrency("BRL")
-	monthlyPayment.SetValue("251")
+	monthlyPayment.SetCurrency(pt.QualifyingFinancing.MonthlyPayment.CurreencyCode)
+	monthlyPayment.SetValue(pt.QualifyingFinancing.MonthlyPayment.Value)
+	//### check for the existence of discount ###
+	if 1 == pt.QualifyingFinancing.CreditFinancing.Term {
+		installmentOption.SetDiscountPercentage(pt.QualifyingFinancing.DiscountPercentage)
+		discountAmount := installmentOption.GetDiscountAmount()
+		discountAmount.SetCurrency(pt.QualifyingFinancing.DiscountAmount.CurreencyCode)
+		discountAmount.SetValue(pt.QualifyingFinancing.DiscountAmount.Value)
+		installmentOption.SetDiscountAmount(discountAmount)
+	}
+	//############################
 	installmentOption.SetMonthlyPayment(monthlyPayment)
 
+	billing.SetSelectedInstallmentOption(installmentOption)
+
+	fi.SetBilling(billing)
+
+	payer.AddFundingInstrument(fi)
+	//TODO: IMPLEMENT TRANSACTIONS OBJECT
 	pt.SetRequestBody(root)
 
 }
@@ -107,20 +123,15 @@ func (pt *CapturePaymentRefWithInstallmentsTransaction) AssembleRequestBody() {
 // ##################################################################
 // #####################END OF INTERFACE IMPLEMENTATIONS#############
 // ##################################################################
-func (pt *CapturePaymentRefWithInstallmentsTransaction) SetBAID(id string) {
+func (pt *CapturePaymentRefWithInstallmentsTransaction) SetBAID(value string) {
 
-	pt.baID = id
-
+	pt.BAID = value
 	// fmt.Printf("VALOR DE BA TYPE ESTA DEFINIDO: %s\n", pt.baType)
 }
 
-// func setUpLoggingFile(logFileName string) {
-// 	logFile, err := os.OpenFile(logFileName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+func (pt *CapturePaymentRefWithInstallmentsTransaction) SetIntallmentPlan(value *model.QualifyingFinancingOption) {
 
-// 	if nil != err {
-// 		return
-// 	}
+	pt.QualifyingFinancing = value
 
-// 	log.SetOutput(logFile)
-
-// }
+	// fmt.Printf("VALOR DE BA TYPE ESTA DEFINIDO: %s\n", pt.baType)
+}

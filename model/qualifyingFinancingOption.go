@@ -12,3 +12,7 @@ type QualifyingFinancingOption struct {
 	TotalInterest         *TotalInterest   `json:"total_interest,omitempty"`
 	TotalCost             *TotalCost       `json:"total_cost,omitempty"`
 }
+
+func NewDefaultQualifyingFinancingOption() *QualifyingFinancingOption {
+	return &QualifyingFinancingOption{}
+}
