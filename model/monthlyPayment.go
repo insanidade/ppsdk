@@ -27,7 +27,7 @@ func (mp *MonthlyPayment) GetCurrencyCode() string {
 	return mp.CurreencyCode
 }
 
-func NewMonthlyPayment() *MonthlyPayment {
+func NewDefaultMonthlyPayment() *MonthlyPayment {
 	return &MonthlyPayment{}
 }
 

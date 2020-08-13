@@ -32,13 +32,8 @@ func (pr *PaymentRoot) IsValid() bool {
 
 //NewPaymentRoot constructor
 func NewDefaultPaymentRoot() *PaymentRoot {
-	var emptyTransactions []Transaction
-	return &PaymentRoot{
-		Payer:              NewDefaultPayer(),
-		ApplicationContext: NewDefaultApplicationContext(),
-		RedirectURLS:       NewDefaultRedirectURLS(),
-		Transactions:       emptyTransactions,
-	}
+
+	return &PaymentRoot{}
 }
 
 func (pr *PaymentRoot) SetIntent(intent string) {

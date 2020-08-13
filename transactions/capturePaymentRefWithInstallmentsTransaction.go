@@ -86,23 +86,26 @@ func (pt *CapturePaymentRefWithInstallmentsTransaction) AssembleRequestBody() {
 
 	root := model.NewDefaultPaymentRoot()
 	root.SetIntent("sale")
+	//######################################################################
+	//########################setting Payer#################################
+	//######################################################################
 
-	payer := root.Payer
+	payer := model.NewDefaultPayer()
 	payer.SetPaymentMethod("paypal")
 
 	fi := model.NewDefaultFundingInstrument()
 
-	billing := fi.Billing
+	billing := model.NewDefaultBilling()
 	billing.SetBillingAgreementID(pt.BAID)
-	installmentOption := billing.GetSelectedInstallmentOption()
+	installmentOption := model.NewDefaultSelectedInstallmentOption()
 	installmentOption.SetTerm(pt.QualifyingFinancing.CreditFinancing.Term)
-	monthlyPayment := installmentOption.GetMonthlyPaymente()
+	monthlyPayment := model.NewDefaultMonthlyPayment()
 	monthlyPayment.SetCurrency(pt.QualifyingFinancing.MonthlyPayment.CurreencyCode)
 	monthlyPayment.SetValue(pt.QualifyingFinancing.MonthlyPayment.Value)
 	//### check for the existence of discount ###
 	if 1 == pt.QualifyingFinancing.CreditFinancing.Term {
 		installmentOption.SetDiscountPercentage(pt.QualifyingFinancing.DiscountPercentage)
-		discountAmount := installmentOption.GetDiscountAmount()
+		discountAmount := model.NewDefaultDiscountAmount()
 		discountAmount.SetCurrency(pt.QualifyingFinancing.DiscountAmount.CurreencyCode)
 		discountAmount.SetValue(pt.QualifyingFinancing.DiscountAmount.Value)
 		installmentOption.SetDiscountAmount(discountAmount)
@@ -115,7 +118,20 @@ func (pt *CapturePaymentRefWithInstallmentsTransaction) AssembleRequestBody() {
 	fi.SetBilling(billing)
 
 	payer.AddFundingInstrument(fi)
+	root.SetPayer(payer)
+	//######################################################################
+	//#####################set Transaction[]################################
+	//######################################################################
+
 	//TODO: IMPLEMENT TRANSACTIONS OBJECT
+	//######################################################################
+	//#####################set RedirectURLS#################################
+	//######################################################################
+	redirectUrls := model.NewDefaultRedirectURLS()
+	redirectUrls.CancelURL = "https://insanidade.servebeer.com/cancel"
+	redirectUrls.ReturnURL = "https://insanidade.servebeer.com/return"
+	root.SetRedirectURLS(redirectUrls)
+
 	pt.SetRequestBody(root)
 
 }

@@ -26,7 +26,7 @@ func (mp *DiscountAmount) SetCurrencyCode(value string) {
 func (mp *DiscountAmount) GetCurrencyCode() string {
 	return mp.CurreencyCode
 }
-func NewDiscountAmount() *DiscountAmount {
+func NewDefaultDiscountAmount() *DiscountAmount {
 	return &DiscountAmount{}
 }
 

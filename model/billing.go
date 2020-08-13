@@ -21,5 +21,8 @@ func (b *Billing) GetBillingAdreementID() string {
 }
 
 func NewDefaultBilling() *Billing {
-	return &Billing{}
+	return &Billing{
+		SelectedInstallmentOption: NewDefaultSelectedInstallmentOption(),
+		BillingAgreementID:        "",
+	}
 }
